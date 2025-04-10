@@ -6,13 +6,11 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
     <div className="flex items-center justify-between py-5 font-medium">
-      <div className=" w-36 h-full">
-        <img
-          src={assets.logo}
-          alt=""
-          className="w-full h-full object-contain "
-        />
-      </div> 
+      <div className="w-36 h-full">
+        <Link className="cursor-pointer" to="/">
+          <img src={assets.logo} className="w-full h-full" alt="" />
+        </Link>
+      </div>
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
         <NavLink
           className="flex items-center flex-col gap-2 hover:text-gray-900"
