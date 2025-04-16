@@ -16,7 +16,6 @@ const Prouduct = () => {
     setProductData(data);
     setImage(data.image[0]);
   };
-
   useEffect(() => {
     fetchProductData();
   }, [id, products, productData]);
