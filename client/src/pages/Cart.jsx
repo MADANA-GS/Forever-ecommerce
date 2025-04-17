@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
 import { assets } from "../assets/assets";
+import CartTotal from "../components/CartTotal";
 
 const Cart = () => {
-  const { products, currency, cartItems, updateQunatity, setCartItems } =
+  const { products, currency, navigate ,cartItems, updateQunatity, setCartItems } =
     useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]);
@@ -64,7 +65,11 @@ const Cart = () => {
               <input
                 type="number"
                 min={1}
-                onChange={(e)=>e.target.value === '' || e.target.vlaue === "0" ? null : updateQunatity(item._id, item.size, e.target.value)}
+                onChange={(e) =>
+                  e.target.value === "" || e.target.vlaue === "0"
+                    ? null
+                    : updateQunatity(item._id, item.size, e.target.value)
+                }
                 value={item.quantity}
                 className="border max-w-10 sm:max-w-20 px-1 py-1 sm:px-2"
               />
@@ -79,6 +84,16 @@ const Cart = () => {
             </div>
           );
         })}
+      </div>
+      <div className="flex justify-end my-20">
+        <div className="w-full sm:w-[450px]">
+          <CartTotal />
+          <div className="w-full text-end">
+            <button onClick={() => navigate("/placeorder")} className="bg-black text-white text-sm my-8 px-8 py-3">
+              Procced to checkout
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

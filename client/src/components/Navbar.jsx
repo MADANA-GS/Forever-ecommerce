@@ -54,11 +54,11 @@ const Navbar = () => {
 
         {/* Profile Dropdown */}
         <div className="relative group">
-          <img
+         <Link to={"/login"}> <img
             src={assets.profile_icon}
             className="w-5 cursor-pointer"
             alt="Profile Icon"
-          />
+          /></Link>
 
           {/* Dropdown menu */}
           <div className="absolute top-6 right-0 bg-white shadow-lg rounded-lg p-4 w-40 hidden group-hover:flex group-hover:flex-col gap-2 z-10">

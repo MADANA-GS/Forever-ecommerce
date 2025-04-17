@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { products } from "../assets/assets";
-
+import { useNavigate } from "react-router-dom";
 export const ShopContext = createContext();
 
 export const ShopContextProvider = ({ children }) => {
@@ -9,6 +9,8 @@ export const ShopContextProvider = ({ children }) => {
   const [search, setsearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
+
+  const navigate = useNavigate();
 
   const addToCart = async (id, size) => {
     let cartData = { ...cartItems };
@@ -25,11 +27,11 @@ export const ShopContextProvider = ({ children }) => {
     setCartItems(cartData);
   };
 
-  const updateQunatity = async (id , size , quantity)=>{
-     let cpyProudct = {...cartItems};
-     cpyProudct[id][size] = quantity;
+  const updateQunatity = async (id, size, quantity) => {
+    let cpyProudct = { ...cartItems };
+    cpyProudct[id][size] = quantity;
     setCartItems(cpyProudct);
-  }
+  };
 
   const getCartCount = () => {
     let totalCount = 0;
@@ -45,11 +47,27 @@ export const ShopContextProvider = ({ children }) => {
     return totalCount;
   };
 
+  const getCartAmount = () => {
+    let totalAmount = 0;
+    for (const items in cartItems) {
+      let itemInfo = products.find((product) => product._id === items);
+      for (const size in cartItems[items]) {
+        try {
+          if (cartItems[items][size] > 0) {
+            totalAmount += cartItems[items][size] * itemInfo.price;
+          }
+        } catch (error) {}
+      }
+    }
+    return totalAmount;
+  };
+
   return (
     <ShopContext.Provider
       value={{
         search,
         setsearch,
+        getCartAmount,
         updateQunatity,
         showSearch,
         setShowSearch,
@@ -60,6 +78,7 @@ export const ShopContextProvider = ({ children }) => {
         setCartItems,
         getCartCount,
         addToCart,
+        navigate,
       }}
     >
       {children}
